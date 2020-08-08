@@ -10,8 +10,16 @@
 	</style>
 </head>
 <body>
-	<h1>Primera p&aacute;gina con Django</h1>
-	<p>El nombre de la persona es: {{nombre_persona}} {{apellido_persona}}</p>
-	<h2>El d&iacute;a de hoy: {{momento_actual.date}}</h2>
+	<h1>Primera p&aacute;gina con Django</h1> {# las llamdas a metodos desde una plantilla de Django no usan parentesis #}
+	<p>El nombre de la persona es: {{nombre_persona.upper}} {{apellido_persona}}</p>
+	<h2>El d&iacute;a de hoy: {{momento_actual}}</h2>
+	<p><strong>Temas del curso:</strong></p>
+	<ul>
+		{% for item in temas %}
+			<li>{{item}}</li>
+		{% empty %}
+			<p>No hay temas</p>
+		{% endfor %}
+	</ul>
 </body>
 </html>

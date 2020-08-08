@@ -16,11 +16,14 @@ def saludo(request): #primera vista
 	apellido = "Cruz"
 	ahora = datetime.datetime.now()
 
+	# temasDelCurso = ["Plantillas", "Modelos", "Formularios", "Vistas", "Despliegue"]
+	temasDelCurso = ""
+
 	doc_externo = open("Proyecto1/plantillas/miplantilla.html")
 	plantilla = Template(doc_externo.read())
 	doc_externo.close()
 	contexto = Context({"nombre_persona" : p1.nombre, "apellido_persona" : p1.apellido,
-		"momento_actual" : ahora})
+		"momento_actual" : ahora.strftime("%x"), "temas" : temasDelCurso})
 	documento = plantilla.render(contexto)
 	return HttpResponse(documento)
 
