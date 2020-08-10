@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 import datetime
 from django.template import Template, Context
+from django.template import loader
 
 class Persona(object):
 
@@ -10,21 +11,25 @@ class Persona(object):
 
 def saludo(request): #primera vista
 
-	p1 = Persona("Antonio", "Cruz")
+	p1 = Persona("Profesor antonio", "Cruz")
 
 	nombre = "Luis"
 	apellido = "Cruz"
 	ahora = datetime.datetime.now()
 
-	# temasDelCurso = ["Plantillas", "Modelos", "Formularios", "Vistas", "Despliegue"]
-	temasDelCurso = ""
+	temasDelCurso = ["Plantillas", "Modelos", "Formularios", "Vistas", "Despliegue"]
+	# temasDelCurso = ""
 
-	doc_externo = open("Proyecto1/plantillas/miplantilla.html")
-	plantilla = Template(doc_externo.read())
-	doc_externo.close()
-	contexto = Context({"nombre_persona" : p1.nombre, "apellido_persona" : p1.apellido,
-		"momento_actual" : ahora.strftime("%x"), "temas" : temasDelCurso})
-	documento = plantilla.render(contexto)
+	# mediante esta forma, el template que es creado y al momento de renderizarlo, si acepta el contexto creado despues
+	# doc_externo = open("Proyecto1/plantillas/miplantilla.html")
+	# plantilla = Template(doc_externo.read())
+	# doc_externo.close()
+	# contexto = Context({"nombre_persona" : p1.nombre, "apellido_persona" : p1.apellido, "momento_actual" : ahora.strftime("%x"), "temas" : temasDelCurso})
+	# documento = plantilla.render(contexto)
+
+	# con un loader, al renderizarlo solo acepta un diccionario y no el contexto creado anteriormente
+	doc_externo = loader.get_template('miplantilla.html')
+	documento = doc_externo.render({"nombre_persona" : p1.nombre, "apellido_persona" : p1.apellido, "momento_actual" : ahora.strftime("%x"), "temas" : temasDelCurso})
 	return HttpResponse(documento)
 
 def despedida(request):

@@ -11,12 +11,22 @@
 </head>
 <body>
 	<h1>Primera p&aacute;gina con Django</h1> {# las llamdas a metodos desde una plantilla de Django no usan parentesis #}
-	<p>El nombre de la persona es: {{nombre_persona.upper}} {{apellido_persona}}</p>
+
+{% comment %}
+	comentario de varias lineas
+{% endcomment %}
+
+	{% if nombre_persona == "Profesor Antonio" %}
+		<p>El curso lo imparte el profesor titular</p>
+	{% else %}
+		<p>El curso lo imparte el profesor suplente</p>
+	{% endif %}
+	<p>El nombre de la persona es: {{nombre_persona.title}} {{apellido_persona}}</p>
 	<h2>El d&iacute;a de hoy: {{momento_actual}}</h2>
 	<p><strong>Temas del curso:</strong></p>
 	<ul>
 		{% for item in temas %}
-			<li>{{item}}</li>
+			<li>{{item|lower}}</li>
 		{% empty %}
 			<p>No hay temas</p>
 		{% endfor %}
