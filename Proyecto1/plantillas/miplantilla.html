@@ -7,9 +7,22 @@
 			text-align: center;
 			color: red;
 		}
+		#menu{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			text-transform: uppercase;
+		}
+		#menu li {
+			display: inline;
+			margin: 0 20px;
+		}
 	</style>
 </head>
 <body>
+
+	{% include "superior/barra.html" %}
+
 	<h1>Primera p&aacute;gina con Django</h1> {# las llamdas a metodos desde una plantilla de Django no usan parentesis #}
 
 {% comment %}
@@ -26,7 +39,7 @@
 	<p><strong>Temas del curso:</strong></p>
 	<ul>
 		{% for item in temas %}
-			<li>{{item|lower}}</li>
+			<li>{{item|upper}}</li>
 		{% empty %}
 			<p>No hay temas</p>
 		{% endfor %}

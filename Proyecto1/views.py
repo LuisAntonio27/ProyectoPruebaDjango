@@ -2,6 +2,7 @@ from django.http import HttpResponse
 import datetime
 from django.template import Template, Context
 from django.template import loader
+from django.shortcuts import render
 
 class Persona(object):
 
@@ -28,9 +29,13 @@ def saludo(request): #primera vista
 	# documento = plantilla.render(contexto)
 
 	# con un loader, al renderizarlo solo acepta un diccionario y no el contexto creado anteriormente
-	doc_externo = loader.get_template('miplantilla.html')
-	documento = doc_externo.render({"nombre_persona" : p1.nombre, "apellido_persona" : p1.apellido, "momento_actual" : ahora.strftime("%x"), "temas" : temasDelCurso})
-	return HttpResponse(documento)
+	# con la clase importada shortcuts ya no necesitamos de los cargadores
+
+	# doc_externo = loader.get_template('miplantilla.html')
+	# documento = doc_externo.render({"nombre_persona" : p1.nombre, "apellido_persona" : p1.apellido, "momento_actual" : ahora.strftime("%x"), "temas" : temasDelCurso})
+	# return HttpResponse(documento)
+
+	return render(request, "miplantilla.html", {"nombre_persona" : p1.nombre, "apellido_persona" : p1.apellido, "momento_actual" : ahora.strftime("%x"), "temas" : temasDelCurso})
 
 def despedida(request):
 	return HttpResponse("Despedida de Django")
